@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Plates Database</title>
+		<meta charset="UTF-8">
+		<meta name="description" content="Plates Database">
+		<meta name="keywords" content="plates,database">
+		<meta name="author" content="Thai Nguyen">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/x-icon" href="/favicon.svg">
+		<link rel="stylesheet" type="text/css" href="lib/css/mdb-4.11.0.min.css">
+		<link rel="stylesheet" type="text/css" href="lib/css/main.css">
+	</head>
+	
+	<body>
+
+		<!-- Section: form gradient -->
+        <section class="form-gradient mb-5">
+
+			<!--Form with header-->
+			<div class="card">
+  
+			  <!--Header-->
+			  <div class="header peach-gradient">
+  
+				<div class="row d-flex justify-content-center">
+				  <h3 class="white-text mb-0 py-5 font-weight-bold">Plates Database</h3>
+				</div>
+  
+			  </div>
+			  <!--Header-->
+  
+			  <div class="card-body mx-4">
+  
+				<div class="md-form">
+				  <i class="fas fa-flag-usa prefix grey-text"></i>
+				  <input type="text" id="state" class="form-control">
+				  <label for="state">State</label>
+				</div>
+  
+				<div class="md-form">
+				  <i class="fas fa-map prefix grey-text"></i>
+				  <input type="text" id="code" class="form-control">
+				  <label for="code">Code</label>
+				</div>
+  
+				<div class="md-form">
+				  <i class="fas fa-pencil-alt prefix grey-text"></i>
+				  <textarea id="description" class="md-textarea form-control" rows="5"></textarea>
+				  <label for="description">Description</label>
+				</div>
+  
+  
+				<!--Grid row-->
+				<div class="row d-flex align-items-center mb-3 mt-4">
+  
+				  <!--Grid column-->
+				  <div class="col-md-12">
+					<div class="text-center">
+					  <button id="add" type="button" class="btn btn-grey btn-rounded z-depth-1a">Add</button>
+					  <button id="clear" type="button" class="btn btn-grey btn-rounded z-depth-1a">Clear</button>
+					</div>
+				  </div>
+				  <!--Grid column-->
+  
+				</div>
+				<!--Grid row-->
+			  </div>
+  
+			</div>
+			<!--/Form with header-->
+  
+		  </section>
+		  <!-- Section: form gradient -->
+
+		<script src="lib/js/mdb-4.11.0.min.js"></script>
+		<script src="lib/js/data.js"></script>
+	</body>
+</html>
