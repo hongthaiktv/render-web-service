@@ -1,7 +1,21 @@
 body {
-    padding: .5rem;
+    padding: .9rem;
 }
 
-.colW80 {
-    width: 80rem;
+.th-cell2 {
+    min-width: 10rem;
+}
+
+.th-cell3 {
+    min-width: 2.5rem;
+}
+
+.th-xlg {
+    min-width: 67rem;
+}
+
+@media only screen and (max-width: 810px) {
+    .th-xlg {
+        min-width: 33.3rem;
+    }
 }

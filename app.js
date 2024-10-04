@@ -10,23 +10,28 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 const sqlite3 = sqlite.verbose();
+// const db = new sqlite3.Database('plates.db');
+// db.run("CREATE TABLE plates (state TEXT, code TEXT UNIQUE, description TEXT, timestamp INT)");
+// db.close();
 
 app.use(express.json());
 app.use(express.static(pubRoot));
 
+app.get('/admin', (req, res) => {
+    let fileName = "admin.html";
+    let options = {root: pubRoot};
+    res.sendFile(fileName, options);
+});
+
 app.get('/get', (req, res) => {
-    const db = new sqlite3.Database('usa_license_plates.db');
+    const db = new sqlite3.Database('plates.db');
     const tblName = "plates";
     db.all(`SELECT rowid AS id, state, code, description, timestamp FROM ${tblName}`, (err, rows) => {
         let result = {};
         if (rows[0]) {
             result.result = rows;
-            result.status = "ok";
-            result.ok = true;
         } else {
-            result.error = "Null Data.";
-            result.status = "error";
-            result.ok = false;
+            result.message = "Null Data.";
         }
 
         db.close();
@@ -37,22 +42,19 @@ app.get('/get', (req, res) => {
 
 app.post('/add', (req, res) => {
     let data = req.body;
-    const db = new sqlite3.Database('usa_license_plates.db');
+    const db = new sqlite3.Database('plates.db');
     const tblName = "plates";
 
     db.serialize(() => {
-        //db.run("CREATE TABLE plates (state TEXT, code TEXT, description TEXT, timestamp INT)");
-    
         const insertData = db.prepare(`INSERT INTO ${tblName} VALUES (?, ?, ?, CURRENT_TIMESTAMP)`);
-        insertData.run(data.state, data.code, data.description);
+        insertData.run(data.state, data.code, data.description, function(error) {
+            console.error(error);
+        });
         insertData.finalize();
-        
     });
 
     let result = {
-        result: "Data added.",
-        status: "ok",
-        ok: true
+        result: "Data added."
     };
 
     db.close();
@@ -61,7 +63,7 @@ app.post('/add', (req, res) => {
 });
 
 app.post('/clear', (req, res) => {
-    const db = new sqlite3.Database('usa_license_plates.db');
+    const db = new sqlite3.Database('plates.db');
     const tblName = req.body.table;
     const key = req.body.key;
     let result = {};
@@ -69,17 +71,17 @@ app.post('/clear', (req, res) => {
     if (key === "123321") {
         db.run(`DELETE FROM ${tblName}`);
         result.result = "Data cleared.";
-        result.status = "ok";
-        result.ok = true;
         console.log(`Clear data from table: ${tblName}`);
     } else {
-        result.error = "Wrong key!!!";
-        result.status = "error";
-        result.ok = false;
-        console.log(result.error);
+        result.message = "Wrong key!!!";
+        console.log(result.message);
     }
     db.close();
     res.json(result);
+});
+
+app.all('*', (req, res) => {
+    res.status(404).json({message: "Not Found!!!"});
 });
 
 const server = app.listen(port, () => console.log(`License Plates App listening on port ${port}!`));
