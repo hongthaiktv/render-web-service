@@ -77,7 +77,7 @@ btnClear.addEventListener("click", function(e) {
     let key = "123321";
     let data = {
         key: key,
-        table: "plates"
+        table: "usa"
     };
 
     postData("/clear", data).then(result => {
@@ -94,10 +94,10 @@ function refTable(data = []) {
     let tblData = document.querySelector("#tableData > tbody");
     tblData.innerHTML = "";
     if (data.length) {
-        data.forEach(function(record) {
+        data.forEach(function(record, index) {
             let row = document.createElement("TR");
             row.innerHTML = `
-                <th scope="row">${record.id}</th>
+                <th scope="row">${index + 1}</th>
                 <td>${record.state}</td>
                 <td>${record.code}</td>
                 <td class="colDes">${record.description}</td>
